@@ -1,3 +1,3 @@
 export function toSlug(value) {
-  return value.toLowerCase().replaceAll(' ', '-');
+  return value.trim().toLowerCase().replaceAll(' ', '-');
 }
