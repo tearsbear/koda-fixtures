@@ -1,0 +1,7 @@
+{
+  "name": "koda-fixtures",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test acceptance.mjs" },
+  "engines": { "node": ">=22" }
+}

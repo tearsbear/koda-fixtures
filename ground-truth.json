@@ -1,0 +1,18 @@
+{
+  "repository": "tearsbear/koda-fixtures",
+  "baseline": { "passed": 2, "failed": 3 },
+  "issues": [
+    { "id": "bug-whitespace", "title": "[Koda fixture] Normalize whitespace in toSlug", "expectedEligibility": "READY", "criteria": ["Trim surrounding whitespace", "Collapse spaces, tabs and newlines to one hyphen", "Preserve lowercase and empty input behavior", "Change only slug.mjs; preserve acceptance tests and CI"] },
+    { "id": "feature-separator", "title": "[Koda fixture] Support a custom slug separator", "expectedEligibility": "READY", "criteria": ["Add optional separator argument defaulting to hyphen", "Underscore separator produces hello_world for Hello World", "Preserve existing default behavior", "Add tests for default and underscore separators"] },
+    { "id": "docs-examples", "title": "[Koda fixture] Document slug input boundaries", "expectedEligibility": "READY", "criteria": ["Document ASCII-string input and punctuation/non-ASCII exclusions", "Include an empty-input and whitespace example", "Change only README.md"] },
+    { "id": "test-uppercase", "title": "[Koda fixture] Add uppercase input regression coverage", "expectedEligibility": "READY", "criteria": ["Add an assertion that HELLO WORLD becomes hello-world", "Modify only acceptance.mjs; preserve all existing assertions"] },
+    { "id": "ambiguous", "title": "[Koda fixture] Make slugs better", "expectedEligibility": "NEEDS_CLARIFICATION", "questions": ["Which inputs are incorrect?", "What exact output is expected?", "Are punctuation and non-ASCII characters in scope?"] }
+  ],
+  "pullRequests": [
+    { "id": "correct", "issue": "bug-whitespace", "replacementSource": "export function toSlug(value) {\n  return value.trim().toLowerCase().replace(/\\s+/g, '-');\n}\n", "expected": "PASS", "passed": 5, "failed": 0 },
+    { "id": "incomplete", "issue": "bug-whitespace", "replacementSource": "export function toSlug(value) {\n  return value.trim().toLowerCase().replaceAll(' ', '-');\n}\n", "expected": "FAIL", "passed": 3, "failed": 2 },
+    { "id": "irrelevant", "issue": "bug-whitespace", "changes": ["README.md only; no slug fix"], "expected": "FAIL", "passed": 2, "failed": 3 },
+    { "id": "scope-creep", "issue": "bug-whitespace", "changes": ["Correct slug fix plus an unrelated billing.mjs file"], "expected": "MANUAL_REVIEW", "passed": 5, "failed": 0, "reason": "Passing tests do not satisfy the allowed-file criterion" }
+  ],
+  "limitations": ["These labels are synthetic ground truth, not AI accuracy measurements", "Self-authored PRs cannot establish independent maintainer approval", "Claim/mission association is not implemented yet", "Expected review statuses are labels for later agent evaluation, not current automated results"]
+}
